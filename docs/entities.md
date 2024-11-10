@@ -61,6 +61,11 @@ direction LR
     36(Name)
     37(Supply history)
 end
+subgraph "Сategory"
+direction LR
+    38(Category ID)
+    39(Name)
+end
 
 Product-->Basket
 Buyer-->Basket
