@@ -3,75 +3,76 @@
 
 flowchart LR
 subgraph "Product"
-direction  LR
-    1(Product ID)
+
+    1(PK:Product ID)
     2(Name)
-    3(Сategory)
-    4(Availability)
-    5(Price)
-    6(Description)
-    7(Reviews)
+    3(FK:Сategory ID)
+    4(Price)
+    5(Description)
+    6(FK:Storage ID)
 end
 
-subgraph "Buyer"
-direction LR
-    8(Buyer ID)
-    9(Login)
-    10(Password)
-    11(Name)
-    12(Address)
-    13(E-mail)
-    14(Order history)
+
+subgraph "Customer"
+ 
+    7(PK:Customer ID)
+    8(Login)
+    9(Password)
+    10(Address)
+    11(E-mail)
+    12(FK:Order history ID)
 end
 
-subgraph "Basket"
-direction LR
-    15(ID product)
-    16(Name Product)
-    17(Price)
-    18(Availability)
-    19(Quantity)
-    20(Buyer ID)
-    21(Bauyer name)
-    22(Address)
-end
 
 subgraph "Order"
-direction LR
-    23(Order ID)
-    24(Product ID )
-    25(Name product)
-    26(Price)
-    27(Quantity)
-    28(Address)
-    29(Date order)
+
+    13(PK:Order ID)
+    14(FK:Product ID )
+    15(Price order)
+    16(Quantity)
+    17(FK:Customer ID)
+    18(Date order)
 end
 
 subgraph "Storage"
-direction LR
-    30(Storage ID)
-    31(Storage address)
-    32(Product ID)
-    33(Quantity)
-    34(Supplier ID)
+
+    19(PK:Storage ID)
+    20(Storage address)
+    21(FK:Product ID)
+    22(Quantity)
+    23(FK:Supplier ID)
+    27(FK:Supply history ID)
 end
 subgraph "Supplier"
-direction LR
-    35(Supplier ID)
-    36(Name)
-    37(Supply history)
+direction 
+    24(PK:Supplier ID)
+    25(Name)
+    26(FK:Product ID)
+    
 end
-subgraph "Сategory"
-direction LR
-    38(Category ID)
-    39(Name)
+subgraph "Category"
+
+    28(PK:Category ID)
+    29(Name)
 end
 
-Product-->Basket
-Buyer-->Basket
-Order-->Buyer
-Basket-->Order
-Storage-->Product
-Supplier-->Storage
-Order-->Storage
+subgraph "Order history"
+
+    30(PK:Order history ID)
+    31(FK:Order ID)
+    32(Date order)
+end
+
+subgraph "Supply history"
+direction LR
+    33(PK:Supply history ID)
+    34(Date supply)
+    35(FK:Supplier ID)
+    36(Quantity)
+
+end
+
+7-->17; 28-->3; 1-->21; 19-->6; 24-->23; 1-->14; 1-->26; 30-->12; 13-->31; 24-->35; 33-->27
+
+
 ```
