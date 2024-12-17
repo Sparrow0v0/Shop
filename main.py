@@ -26,7 +26,7 @@ def serch_categories(id: int):
 @app.post('/categoires', tags=['categories'])
 def add_categories(category: model.Category):
     categ = data_base.Categories(name = category.category_name)
-    with data_base.Session(autoflush=False, bind=data_base.engine) as session:
+    with data_base.Session(bind=data_base.engine) as session:
         session.add(categ)
         session.commit()
         session.refresh(categ)
@@ -36,7 +36,7 @@ def add_categories(category: model.Category):
 @app.put('/categories/', tags=['categories'])
 def update_categories(id: int, category: model.Category):
     new_data = data_base.Categories(name = category.category_name)
-    with data_base.Session(autoflush=False, bind=data_base.engine) as session:
+    with data_base.Session(bind=data_base.engine) as session:
         categ = session.query(data_base.Categories).get(id)
         if categ:
             categ.name = new_data.name
@@ -50,7 +50,7 @@ def update_categories(id: int, category: model.Category):
 
 @app.delete('/categories/{id}', tags=['categories'])
 def delete_categories(id: int):
-    with data_base.Session(bind= data_base.engine, autoflush = False) as session:
+    with data_base.Session(bind= data_base.engine) as session:
         categ = session.get(data_base.Categories, id)
         if categ:
             session.delete(categ)
@@ -71,7 +71,7 @@ def get_products():
 
 @app.get('/products/{id}', tags=['products'])
 def serch_product(id: int):
-    with data_base.Session(bind=data_base.engine, autoflush=False) as session:
+    with data_base.Session(bind=data_base.engine) as session:
         prod = session.get(data_base.Products, id)
         if prod:
             return prod
